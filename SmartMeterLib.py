@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import copy,sys
 import datetime
-from AnomalyDetector import AnomalyDetector
+#from AnomalyDetector import AnomalyDetector
 
 AnomalyMultiplier = 5
 IrrelevantColumns = ['REGISTER_LOC', 'STATUS_DESC','INSERT_DT']
@@ -69,6 +69,7 @@ class SmartMeterLib(object):
 	def get_meter_usage(self, meter_no, meter_usage_caption = 'METER_USAGE', meter_alert_caption = 'METER_ALERT', start_reading = -1, register_tp = 'KWH'):
 		key = (meter_no,register_tp)
 		if (key not in self.meter_groups.groups):
+			print key
 			return pd.DataFrame()
 		meter_data = copy.deepcopy(self.meter_groups.get_group(key))
 		if(len(meter_data.index) == 0):

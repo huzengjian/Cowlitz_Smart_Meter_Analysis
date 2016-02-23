@@ -1,3 +1,4 @@
+# Usage: python DataAnalysis.py [(2015,'june')] ['KWH'] 'True'
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -84,7 +85,7 @@ def analyze(year_months, register_tps, plot):
 			list_meter_data = []
 			list_suspicious_data = []
 			list_rollover_data = []
-			meter_nos = current_Month_Data.get_all_unique_meter_nos()
+			#meter_nos = current_Month_Data.get_all_unique_meter_nos()
 			print "For {0} {1}, found {2} meter records.".format(month, year, len(meter_nos))
 
 			#Parallel(n_jobs=2)(delayed(process_meter_info)(meter_no) for meter_no in meter_nos)
@@ -96,6 +97,7 @@ def analyze(year_months, register_tps, plot):
 				if(start_reading != -1):
 					print "last month's last reading = {0}".format(start_reading)
 				meter_data = current_Month_Data.get_meter_usage(meter_no = meter_no, start_reading = start_reading, register_tp = rtp)
+				
 				if(len(meter_data.index) > 0):
 					#rate = meter_data.RATE.unique()[0]
 					#account_class = meter_data.ACCOUNT_CLASS_DEFAULT.unique()[0]
@@ -147,8 +149,8 @@ def analyze(year_months, register_tps, plot):
 				plotDataFrame(rate_class_result)
 		
 def main(argv):
-	if len(argv) < 3:
-		print '\nSorry - invalid parameters.\nUsage:\n==========Params=========\nYear_Months \n Register_Tps \n Plot \n====================='
+	if len(argv) < 4:
+		print '\nInvalid parameters.\n\nUsage:\n=======Params=======\nYear_Months \nRegister_Tps\nPlot\n=====================\nExample: python DataAnalysis.py [(2015,\'june\')] [\'KWH\'] \'True\'\n'
 		return
 	year_months = ast.literal_eval(sys.argv[1])
 	register_tps = ast.literal_eval(sys.argv[2])
